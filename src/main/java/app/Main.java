@@ -36,7 +36,7 @@ public class Main {
             String username = (String) body.get("username");
             String password = (String) body.get("password");
 
-            if (!"admin".equals(username) || !"admin".equals(password)) {
+            if (!"".equals(username) || !"".equals(password)) {
                 return gson.toJson(Map.of("ok", false, "msg", "Username atau password salah"));
             }
 
