@@ -1,45 +1,138 @@
+/* =========================================
+   GLOBAL THEME — Dark Gold Premium
+========================================= */
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background: #f9f9f9;
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 40px;
+    background: #000000;
+    color: #e8e8e8;
 }
 
+/* =========================================
+   PAGE TITLE
+========================================= */
 header h1 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 35px;
+    font-size: 32px;
+    font-weight: 700;
+    color: #f5d38f;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 12px rgba(245, 211, 143, 0.3);
 }
 
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 30px;
+    border-radius: 22px;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* =========================================
+   TABLE DESIGN
+========================================= */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 15px;
-    background: #fff;
+    margin-bottom: 25px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(6px);
+    border-radius: 15px;
+    overflow: hidden;
 }
 
 th, td {
-    padding: 10px;
-    border: 1px solid #ccc;
-    text-align: left;
+    padding: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    font-size: 15px;
 }
 
 th {
-    background: #eee;
+    background: rgba(245, 211, 143, 0.12);
+    color: #f5d38f;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
 }
 
+tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transition: 0.25s;
+}
+
+/* =========================================
+   INPUT NUMBER (Qty)
+========================================= */
 input[type=number] {
-    width: 60px;
+    width: 70px;
+    padding: 8px;
+    border-radius: 10px;
+    border: 1px solid #444;
+    background: #1a1a1a;
+    color: #d8d8d8;
+    outline: none;
+    transition: 0.3s ease;
 }
 
+input[type=number]:focus {
+    border-color: #f5d38f;
+    box-shadow: 0 0 10px rgba(245, 211, 143, 0.45);
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
 button {
-    padding: 5px 10px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(to right, #f5d38f, #e4b872);
+    color: #1b1b1b;
     cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    transition: 0.25s ease;
 }
 
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(245, 211, 143, 0.5);
+}
+
+/* =========================================
+   CART TOTALS
+========================================= */
 #cartTotals {
-    font-weight: bold;
+    font-weight: 700;
+    margin: 20px 0 28px;
+    font-size: 20px;
+    color: #f5d38f;
+    text-shadow: 0 0 8px rgba(245, 211, 143, 0.3);
+}
+
+/* =========================================
+   PAYMENT METHODS
+========================================= */
+.payment-methods {
     margin-bottom: 20px;
 }
 
 .payment-methods label {
-    margin-right: 15px;
+    margin-right: 25px;
+    font-size: 15px;
+    color: #cfcfcf;
+    cursor: pointer;
+}
+
+.payment-methods input[type=radio] {
+    transform: scale(1.2);
+    margin-right: 6px;
 }
