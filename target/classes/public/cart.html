@@ -62,7 +62,7 @@
             document.querySelectorAll('.qty').forEach(input => {
                 input.onchange = async (e) => {
                     const id = e.target.dataset.id;
-                    const quantity = Number(e.target.value);
+                    const quantity = Math.max(0, Number(e.target.value) || 0);
                     await fetch('/api/cart/update', {
                         method:'POST',
                         headers:{'Content-Type':'application/json'},
