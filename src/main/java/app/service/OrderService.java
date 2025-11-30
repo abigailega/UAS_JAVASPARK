@@ -9,16 +9,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-/**
- * Simple in-memory order store.
- * Cocok untuk backend restoran sekarang.
- */
 public class OrderService {
 
     private final Map<String, Order> store = new ConcurrentHashMap<>();
     private final AtomicInteger seq = new AtomicInteger(1000);
 
-    // Buat order dari cart
     public Order createFromCart(String customerName, String tableNumber, List<CartItem> cart) {
         if (cart == null || cart.isEmpty())
             return null;
@@ -39,7 +34,6 @@ public class OrderService {
         return o;
     }
 
-    // Buat order dari payload (misal dari API)
     @SuppressWarnings("unchecked")
     public Order createFromPayload(String customerName, String tableNumber, List<Map<String, Object>> itemsRaw) {
         if (itemsRaw == null || itemsRaw.isEmpty())
@@ -62,17 +56,14 @@ public class OrderService {
         return o;
     }
 
-    // Ambil order berdasarkan ID
     public Order findById(String id) {
         return store.get(id);
     }
 
-    // Ambil semua order
     public List<Order> getAll() {
         return new ArrayList<>(store.values());
     }
 
-    // Update status order
     public boolean updateStatus(String id, String status) {
         Order o = store.get(id);
         if (o != null) {
@@ -82,7 +73,6 @@ public class OrderService {
         return false;
     }
 
-    // Hapus order
     public boolean delete(String id) {
         return store.remove(id) != null;
     }

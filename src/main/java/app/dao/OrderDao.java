@@ -12,7 +12,7 @@ public class OrderDao {
 
     private final String url = "jdbc:mysql://localhost:3306/restaurantdb";
     private final String user = "root";
-    private final String password = "abigail"; // sesuaikan
+    private final String password = "abigail"; 
 
     public OrderDao() {
         try {
@@ -26,7 +26,6 @@ public class OrderDao {
         return DriverManager.getConnection(url, user, password);
     }
 
-    // Simpan order
     public boolean saveOrder(String orderId, String customerName, String tableNumber, List<CartItem> cart) {
         String insertOrderSQL = "INSERT INTO orders (id, customer_name, table_number, total, timestamp, status) VALUES (?, ?, ?, ?, ?, ?)";
         String insertItemSQL = "INSERT INTO order_items (order_id, menu_id, name, quantity, price, total) VALUES (?, ?, ?, ?, ?, ?)";
@@ -69,7 +68,6 @@ public class OrderDao {
         return false;
     }
 
-    // Ambil semua order
     public List<Order> getAllOrders() {
         List<Order> orders = new ArrayList<>();
         String sql = "SELECT * FROM orders";

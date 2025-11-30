@@ -50,14 +50,9 @@ public class Main {
         MenuService menuService = new MenuService();
         OrderDao orderDao = new OrderDao();
 
-        // ==============================
-        // ROUTES LOGIN
-        // ==============================
-
         Spark.post("/api/login", (req, res) -> {
             res.type("application/json");
             try {
-                // Ambil data dari body request
                 Map<String, Object> p = (Map) gson.fromJson(req.body(), (new TypeToken<Map<String, Object>>() {
                 }).getType());
                 String username = (String) p.get("username");
@@ -65,11 +60,9 @@ public class Main {
 
                 if ("admin".equals(username) && "12345".equals(password)) {
 
-                    // Otentikasi Berhasil
                     return jsonOk(Map.of("message", "Login successful"));
                 } else {
-                    // Otentikasi Gagal
-                    res.status(401); // Unauthorized
+                    res.status(401); 
                     return jsonError("Invalid username or password");
                 }
             } catch (Exception e) {
@@ -77,10 +70,6 @@ public class Main {
                 return jsonError(e.getMessage());
             }
         });
-
-        // ==============================
-        // ROUTES MENUS
-        // ==============================
 
         get("/api/menus", (req, res) -> {
             res.type("application/json");
@@ -92,9 +81,6 @@ public class Main {
             return gson.toJson(menuService.getByCategory(req.params("c")));
         });
 
-        // ==============================
-        // ROUTE TAMBAH MENU
-        // ==============================
         post("/api/menus/add", (req, res) -> {
             res.type("application/json");
             try {
@@ -111,9 +97,6 @@ public class Main {
             }
         });
 
-        // ==============================
-        // ROUTES CART
-        // ==============================
         post("/api/cart/add", (req, res) -> {
             res.type("application/json");
             Map<String, Object> payload = gson.fromJson(req.body(), new TypeToken<Map<String, Object>>() {
@@ -248,7 +231,7 @@ public class Main {
                     "timestamp", System.currentTimeMillis());
 
             return gson.toJson(Map.of("ok", saved, "receipt", receipt));
-        });
 
+        });
     }
 }

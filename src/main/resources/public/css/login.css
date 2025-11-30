@@ -7,7 +7,7 @@
 }
 
 body {
-    background: #0b0b0b; /* hitam deep premium */
+    background: #0b0b0b; 
     height: 100vh;
     display: flex;
     align-items: center;
@@ -16,7 +16,6 @@ body {
     color: #fff;
 }
 
-/* ===== Luxury Card ===== */
 .login-container {
     background: rgba(195, 17, 17, 0.04); 
     backdrop-filter: blur(18px);
@@ -26,7 +25,7 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 
         0 25px 60px rgba(0, 0, 0, 0.7),
-        0 0 25px rgba(255, 215, 150, 0.06); /* gold aura */
+        0 0 25px rgba(255, 215, 150, 0.06); 
     transition: 0.3s;
 }
 
@@ -34,17 +33,15 @@ body {
     transform: translateY(-2px);
 }
 
-/* ===== Title ===== */
 .login-container h2 {
     font-size: 30px;
     margin-bottom: 28px;
     font-weight: 600;
-    color: #f4d9a5; /* soft luxury gold */
+    color: #f4d9a5; 
     letter-spacing: 1.5px;
     text-shadow: 0 0 8px rgba(255, 215, 150, 0.25);
 }
 
-/* ===== Form ===== */
 label {
     display: block;
     text-align: left;
@@ -75,7 +72,6 @@ input:focus {
         inset 0 0 10px rgba(244, 217, 165, 0.15);
 }
 
-/* ===== Button (Premium Gold) ===== */
 button {
     width: 100%;
     padding: 14px;
@@ -103,7 +99,6 @@ button:hover {
         0 0 15px rgba(240, 200, 130, 0.2);
 }
 
-/* ===== Note ===== */
 .note {
     margin-top: 20px;
     font-size: 12.5px;

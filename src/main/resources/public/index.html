@@ -5,20 +5,15 @@
     <title>Restoran App</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
 
-    <!-- HEADER -->
+<body>
     <nav class="navbar">
         <h2>Restoran App</h2>
         <div class="nav-right">
             <button id="btnLogin" class="nav-btn">Login</button>
-            <button id="btnCart" class="nav-btn cart-btn">
-                🛒 <span id="cartCount">0</span>
-            </button>
         </div>
     </nav>
 
-    <!-- TAB KATEGORI -->
     <div class="tabs">
         <button class="tab" data-cat="All">Semua</button>
         <button class="tab" data-cat="Makanan">Makanan</button>
@@ -26,14 +21,14 @@
         <button class="tab" data-cat="Snack">Snack</button>
     </div>
 
-    <!-- GRID MENU -->
     <div id="menuGrid" class="menu-grid"></div>
 
-    <!-- FLOATING CART WINDOW -->
     <div id="floatingCart" class="floating-cart">
         <h4>Keranjangmu</h4>
         <div id="floatingCartContent"></div>
-        <button id="confirmFloatingCart" class="confirm-btn">Konfirmasi Pesanan</button>
+        <button id="confirmFloatingCart" class="confirm-btn">
+            Konfirmasi Pesanan (<span id="cartCount">0</span>)
+        </button>
     </div>
 
     <script src="/js/app.js"></script>

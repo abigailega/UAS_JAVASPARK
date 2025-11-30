@@ -10,7 +10,6 @@ public class MenuItem implements Serializable {
     private double price;
     private String image;
 
-    // Default constructor untuk Gson/serialization
     public MenuItem() {
     }
 
@@ -71,7 +70,6 @@ public class MenuItem implements Serializable {
         this.image = image;
     }
 
-    // Optional helper: representasi string untuk debugging
     @Override
     public String toString() {
         return String.format("[%s] %s (%.2f)", id, name, price);

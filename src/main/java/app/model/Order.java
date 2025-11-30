@@ -26,7 +26,6 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    // ===== Getters & Setters =====
     public String getId() {
         return id;
     }
@@ -83,7 +82,6 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    // Optional helper: representasi string
     @Override
     public String toString() {
         return String.format("Order[%s] Table: %s, Total: %.2f, Status: %s", id, tableNumber, total, status);

@@ -1,15 +1,22 @@
 <!doctype html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>Keranjang - FoodOrder</title>
-    <link rel="stylesheet" href="/css/cart.css">
-</head>
-<body>
-    <header><h1>Keranjang</h1></header>
-    <main>
-        <table id="cartTable">
-            <thead>
+    <head>
+        <meta charset="utf-8">
+        <title>Keranjang - FoodOrder</title>
+        <link rel="stylesheet" href="/css/cart.css">
+    </head>
+
+    <body>
+        <button id="btnBack" class="back-btn">Kembali</button>
+
+        <header>
+            <h1>Keranjang</h1>
+        </header>        
+
+        <main>
+
+            <table id="cartTable">
+                <thead>
                 <tr>
                     <th>Menu</th>
                     <th>Harga</th>
@@ -17,106 +24,28 @@
                     <th>Total</th>
                     <th>Aksi</th>
                 </tr>
-            </thead>
-            <tbody id="cartItems"></tbody>
-        </table>
+                </thead>
+                <tbody id="cartItems"></tbody>
+            </table>
 
-        <div id="cartTotals"></div>
+            <div id="cartTotals"></div>
 
-        <h3>Checkout</h3>
-        <label>Nomor Meja: <input id="tableNo" type="text"></label>
-        <div class="payment-methods">
-            <label><input type="radio" name="pay" value="cash" checked> Cash</label>
-            <label><input type="radio" name="pay" value="debit"> Debit</label>
-            <label><input type="radio" name="pay" value="qris"> QRIS</label>
-        </div>
-        <button id="btnCheckout">Checkout</button>
-        <button id="btnPrintReceipt" style="display:none;">Cetak Bon</button>
-    </main>
+            <h3>Checkout</h3>
 
-    <script>
-        async function loadCart() {
-            const res = await fetch('/api/cart');
-            const data = await res.json();
-            const tbody = document.getElementById('cartItems');
-            tbody.innerHTML = '';
+            <label>Nomor Meja:
+                <input id="tableNo" type="text">
+            </label>
 
-            if (!data.items) return;
+            <div class="payment-methods">
+                <label><input type="radio" name="pay" value="cash" checked> Cash</label>
+                <label><input type="radio" name="pay" value="debit"> Debit</label>
+                <label><input type="radio" name="pay" value="qris"> QRIS</label>
+            </div>
 
-            data.items.forEach(it => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${it.name}</td>
-                    <td>Rp ${it.price.toLocaleString('id-ID')}</td>
-                    <td>
-                        <input type="number" min="0" value="${it.quantity}" data-id="${it.id}" class="qty">
-                    </td>
-                    <td>Rp ${it.total.toLocaleString('id-ID')}</td>
-                    <td><button data-id="${it.id}" class="remove">Hapus</button></td>
-                `;
-                tbody.appendChild(tr);
-            });
+            <button id="btnCheckout">Checkout</button>
 
-            document.getElementById('cartTotals').innerText = `Total: Rp ${data.total.toLocaleString('id-ID')}`;
+        </main>
 
-            document.querySelectorAll('.qty').forEach(input => {
-                input.onchange = async (e) => {
-                    const id = e.target.dataset.id;
-                    const quantity = Math.max(0, Number(e.target.value) || 0);
-                    await fetch('/api/cart/update', {
-                        method:'POST',
-                        headers:{'Content-Type':'application/json'},
-                        body: JSON.stringify({id, quantity})
-                    });
-                    loadCart();
-                };
-            });
-
-            document.querySelectorAll('.remove').forEach(b => {
-                b.onclick = async (e) => {
-                    const id = e.target.dataset.id;
-                    await fetch('/api/cart/remove', {
-                        method:'POST',
-                        headers:{'Content-Type':'application/json'},
-                        body: JSON.stringify({id})
-                    });
-                    loadCart();
-                };
-            });
-        }
-
-        document.getElementById('btnCheckout').onclick = async () => {
-            const tableNo = document.getElementById('tableNo').value;
-            const pay = document.querySelector('input[name=pay]:checked').value;
-            const res = await fetch('/api/checkout', {
-                method:'POST',
-                headers:{'Content-Type':'application/json'},
-                body: JSON.stringify({paymentMethod: pay, tableNumber: tableNo})
-            });
-            const j = await res.json();
-            if (j.ok) {
-                alert('Checkout berhasil!');
-                if (pay === 'qris') {
-                    const win = window.open('', '_blank', 'width=400,height=600');
-                    win.document.write('<h1>QRIS (Dummy)</h1><p>Scan this placeholder QR</p><img src="/images/qris_dummy.png">');
-                }
-                const receiptWindow = window.open('', '_blank');
-                let html = '<h1>Bon Pembayaran</h1><table border="1" cellpadding="5" cellspacing="0"><tr><th>Menu</th><th>Qty</th><th>Total</th></tr>';
-                const items = j.receipt.items || [];
-                for (let it of items) {
-                    html += `<tr><td>${it.name}</td><td>${it.quantity}</td><td>Rp ${it.total.toLocaleString('id-ID')}</td></tr>`;
-                }
-                html += `</table><p>Total: Rp ${j.receipt.total.toLocaleString('id-ID')}</p>`;
-                receiptWindow.document.write(html);
-                document.getElementById('btnPrintReceipt').style.display = 'inline-block';
-                document.getElementById('btnPrintReceipt').onclick = () => receiptWindow.print();
-                loadCart();
-            } else {
-                alert('Checkout gagal: ' + (j.error || 'unknown'));
-            }
-        };
-
-        loadCart();
-    </script>
-</body>
+        <script src="js/cart.js"></script>
+    </body>
 </html>
