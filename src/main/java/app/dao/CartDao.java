@@ -10,10 +10,8 @@ import spark.Session;
 public class CartDao {
 
     public CartDao() {
-        // Tidak menggunakan database, cart disimpan di session
     }
 
-    // Ambil cart dari session
     public List<CartItem> getCart(Session session) {
         List<CartItem> cart = session.attribute("cart");
         if (cart == null) {
@@ -23,7 +21,6 @@ public class CartDao {
         return cart;
     }
 
-    // Tambah item ke cart
     public void addToCart(Session session, MenuItem menuItem, int quantity) {
         List<CartItem> cart = getCart(session);
 
@@ -38,7 +35,6 @@ public class CartDao {
         }
     }
 
-    // Update quantity item di cart
     public void updateCart(Session session, MenuItem menuItem, int quantity) {
         List<CartItem> cart = getCart(session);
         Optional<CartItem> existing = cart.stream()
@@ -54,19 +50,16 @@ public class CartDao {
         });
     }
 
-    // Hapus item dari cart
     public void removeFromCart(Session session, MenuItem menuItem) {
         List<CartItem> cart = getCart(session);
         cart.removeIf(ci -> ci.getItem().getId().equals(menuItem.getId()));
     }
 
-    // Total harga cart
     public double getTotal(Session session) {
         List<CartItem> cart = getCart(session);
         return cart.stream().mapToDouble(CartItem::getTotal).sum();
     }
 
-    // Total jumlah item di cart
     public int getTotalQty(Session session) {
         List<CartItem> cart = getCart(session);
         return cart.stream().mapToInt(CartItem::getQuantity).sum();

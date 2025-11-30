@@ -47,12 +47,9 @@ public class MenuService {
         return (item != null) ? item.getImage() : "";
     }
 
-    // ==========================
-    // Method baru: tambah menu
-    // ==========================
     public boolean addMenu(MenuItem item) {
         if (exists(item.getId())) {
-            return false; // ID sudah ada
+            return false; 
         }
         return menuDao.add(item);
     }

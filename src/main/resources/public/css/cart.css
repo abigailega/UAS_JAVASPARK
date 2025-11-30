@@ -1,6 +1,3 @@
-/* =========================================
-   GLOBAL THEME — Dark Gold Premium
-========================================= */
 body {
     font-family: "Poppins", sans-serif;
     margin: 0;
@@ -9,9 +6,6 @@ body {
     color: #e8e8e8;
 }
 
-/* =========================================
-   PAGE TITLE
-========================================= */
 header h1 {
     text-align: center;
     margin-bottom: 35px;
@@ -22,9 +16,6 @@ header h1 {
     text-shadow: 0 0 12px rgba(245, 211, 143, 0.3);
 }
 
-/* =========================================
-   MAIN CONTAINER
-========================================= */
 .container {
     max-width: 900px;
     margin: auto;
@@ -36,9 +27,6 @@ header h1 {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* =========================================
-   TABLE DESIGN
-========================================= */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -68,9 +56,6 @@ tr:hover {
     transition: 0.25s;
 }
 
-/* =========================================
-   INPUT NUMBER (Qty)
-========================================= */
 input[type=number] {
     width: 70px;
     padding: 8px;
@@ -87,9 +72,6 @@ input[type=number]:focus {
     box-shadow: 0 0 10px rgba(245, 211, 143, 0.45);
 }
 
-/* =========================================
-   BUTTONS
-========================================= */
 button {
     padding: 12px 18px;
     border: none;
@@ -107,9 +89,6 @@ button:hover {
     box-shadow: 0 8px 25px rgba(245, 211, 143, 0.5);
 }
 
-/* =========================================
-   CART TOTALS
-========================================= */
 #cartTotals {
     font-weight: 700;
     margin: 20px 0 28px;
@@ -118,9 +97,6 @@ button:hover {
     text-shadow: 0 0 8px rgba(245, 211, 143, 0.3);
 }
 
-/* =========================================
-   PAYMENT METHODS
-========================================= */
 .payment-methods {
     margin-bottom: 20px;
 }
@@ -134,5 +110,22 @@ button:hover {
 
 .payment-methods input[type=radio] {
     transform: scale(1.2);
+    margin-right: 6px;
+}
+
+.back-btn {
+    background: #444;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 12px;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.back-btn:hover {
+    background: #333;
     margin-right: 6px;
 }

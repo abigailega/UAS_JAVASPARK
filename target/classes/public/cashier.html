@@ -5,7 +5,6 @@
     <title>Cashier - FoodOrder</title>
     <link rel="stylesheet" href="/css/cart.css">
     <style>
-        /* Popup kecil di kanan bawah */
         #orderPopup {
             display: none;
             position: fixed;
@@ -41,7 +40,6 @@
         <button id="btnCheckoutAll">Checkout Semua</button>
     </main>
 
-    <!-- Popup notifikasi -->
     <div id="orderPopup">
         <div id="popupContent"></div>
         <button id="popupConfirm">OK</button>
@@ -50,7 +48,7 @@
     <script>
         async function loadOrders() {
             try {
-                const res = await fetch('/api/cart'); // Ambil semua pesanan customer
+                const res = await fetch('/api/cart'); 
                 const data = await res.json();
                 const tbody = document.getElementById('ordersItems');
                 tbody.innerHTML = '';
@@ -89,7 +87,6 @@
             btn.onclick = () => { popup.style.display = 'none'; };
         }
 
-        // Checkout semua pesanan sekaligus
         document.getElementById('btnCheckoutAll').onclick = async () => {
             try {
                 const resCart = await fetch('/api/cart');
@@ -99,13 +96,12 @@
                     return;
                 }
 
-                // POST semua pesanan sekaligus ke endpoint checkout
                 const res = await fetch('/api/checkout', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         items: cart.items,
-                        paymentMethod: 'cash', // bisa disesuaikan
+                        paymentMethod: 'cash', 
                         tableNumber: null
                     })
                 });
@@ -113,7 +109,7 @@
                 const j = await res.json();
                 if (j.ok) {
                     showOrderPopup('Semua pesanan telah dicheckout!');
-                    loadOrders(); // refresh tabel (cart sudah kosong)
+                    loadOrders(); 
                 } else {
                     alert('Checkout gagal: ' + (j.error || 'unknown'));
                 }
@@ -124,7 +120,7 @@
         };
 
         loadOrders();
-        setInterval(loadOrders, 5000); // Auto-refresh setiap 5 detik
+        setInterval(loadOrders, 5000); 
     </script>
 </body>
 </html>
