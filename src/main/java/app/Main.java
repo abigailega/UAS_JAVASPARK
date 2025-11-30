@@ -2,6 +2,8 @@ package app;
 
 import static spark.Spark.*;
 import spark.Session;
+import spark.Spark;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import app.model.*;
@@ -47,6 +49,34 @@ public class Main {
 
         MenuService menuService = new MenuService();
         OrderDao orderDao = new OrderDao();
+
+        // ==============================
+        // ROUTES LOGIN
+        // ==============================
+
+        Spark.post("/api/login", (req, res) -> {
+            res.type("application/json");
+            try {
+                // Ambil data dari body request
+                Map<String, Object> p = (Map) gson.fromJson(req.body(), (new TypeToken<Map<String, Object>>() {
+                }).getType());
+                String username = (String) p.get("username");
+                String password = (String) p.get("password");
+
+                if ("admin".equals(username) && "12345".equals(password)) {
+
+                    // Otentikasi Berhasil
+                    return jsonOk(Map.of("message", "Login successful"));
+                } else {
+                    // Otentikasi Gagal
+                    res.status(401); // Unauthorized
+                    return jsonError("Invalid username or password");
+                }
+            } catch (Exception e) {
+                res.status(500);
+                return jsonError(e.getMessage());
+            }
+        });
 
         // ==============================
         // ROUTES MENUS
