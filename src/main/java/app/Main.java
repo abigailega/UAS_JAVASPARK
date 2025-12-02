@@ -1,15 +1,27 @@
 package app;
 
-import static spark.Spark.*;
-import spark.Session;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import app.model.*;
-import app.service.MenuService;
-import app.dao.OrderDao;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import app.dao.OrderDao;
+import app.model.CartItem;
+import app.model.MenuItem;
+import app.model.OrderItem;
+import app.service.MenuService;
+import spark.Session;
+import static spark.Spark.before;
+import static spark.Spark.exception;
+import static spark.Spark.get;
+import static spark.Spark.options;
+import static spark.Spark.port;
+import static spark.Spark.post;
+import static spark.Spark.staticFiles;
 
 public class Main {
     static Gson gson = new Gson();
@@ -183,7 +195,7 @@ public class Main {
 
             String paymentMethod = (String) p.get("paymentMethod");
             String tableNumber = (String) p.getOrDefault("tableNumber", "");
-
+String serviceType   = (String) p.getOrDefault("serviceType", "dine-in");
             Session session = req.session(true);
             List<CartItem> cart = session.attribute("cart");
 
@@ -214,7 +226,7 @@ public class Main {
                             "total", oi.getTotal())).toArray(),
                     "total", total,
                     "paymentMethod", paymentMethod,
-                    "tableNumber", tableNumber,
+                    "tableNumber", tableNumber,"serviceType", serviceType,
                     "timestamp", System.currentTimeMillis());
 
             return gson.toJson(Map.of("ok", saved, "receipt", receipt));

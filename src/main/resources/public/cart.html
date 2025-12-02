@@ -22,9 +22,26 @@
         </table>
 
         <div id="cartTotals"></div>
-
         <h3>Checkout</h3>
-        <label>Nomor Meja: <input id="tableNo" type="text"></label>
+
+        <!-- Pilih dine-in atau take-out -->
+        <div class="service-type">
+            <span>Pilih Layanan:</span>
+            <label>
+                <input type="radio" name="serviceType" value="dine-in" checked>
+                Dine-In
+            </label>
+            <label style="margin-left: 15px;">
+                <input type="radio" name="serviceType" value="take-out">
+                Take-Out
+            </label>
+        </div>
+
+        <!-- Nomor meja, hanya dipakai kalau dine-in -->
+        <div id="tableNoRow">
+            <label>Nomor Meja: <input id="tableNo" type="text"></label>
+        </div>
+
         <div class="payment-methods">
             <label><input type="radio" name="pay" value="cash" checked> Cash</label>
             <label><input type="radio" name="pay" value="debit"> Debit</label>
@@ -33,6 +50,7 @@
         <button id="btnCheckout">Checkout</button>
         <button id="btnPrintReceipt" style="display:none;">Cetak Bon</button>
     </main>
+
 
     <script>
         async function loadCart() {
@@ -84,14 +102,24 @@
                 };
             });
         }
-
+         document.querySelectorAll('input[name="serviceType"]').forEach(radio => {
+            radio.addEventListener('change', () => {
+                const row = document.getElementById('tableNoRow');
+                if (radio.value === 'dine-in' && radio.checked) {
+                    row.style.display = 'block';
+                } else if (radio.value === 'take-out' && radio.checked) {
+                    row.style.display = 'none';
+                    document.getElementById('tableNo').value = '';
+                }
+            });
+        });
         document.getElementById('btnCheckout').onclick = async () => {
             const tableNo = document.getElementById('tableNo').value;
             const pay = document.querySelector('input[name=pay]:checked').value;
             const res = await fetch('/api/checkout', {
                 method:'POST',
                 headers:{'Content-Type':'application/json'},
-                body: JSON.stringify({paymentMethod: pay, tableNumber: tableNo})
+                body: JSON.stringify({paymentMethod: pay, tableNumber: tableNo, serviceType: serviceType})
             });
             const j = await res.json();
             if (j.ok) {

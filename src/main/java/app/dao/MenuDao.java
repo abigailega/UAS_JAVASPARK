@@ -1,15 +1,21 @@
 package app.dao;
 
-import app.model.MenuItem;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import app.model.MenuItem;
 
 public class MenuDao {
 
     private final String url = "jdbc:mysql://localhost:3306/restaurantdb";
     private final String user = "root";
-    private final String password = "abigail";
+    private final String password = "Rahasiadong1215";
 
     public MenuDao() {
         try {
@@ -26,33 +32,43 @@ public class MenuDao {
     // ========================
     // GET ALL
     // ========================
-    public List<MenuItem> getAll() {
-        List<MenuItem> list = new ArrayList<>();
-        String sql = "SELECT * FROM menu";
+       public List<MenuItem> getAll() {
+    System.out.println("DEBUG: MenuDao.getAll() terpanggil");
 
-        try (Connection conn = getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+    List<MenuItem> list = new ArrayList<>();
+    String sql = "SELECT * FROM menu";
 
-            while (rs.next()) {
-                list.add(new MenuItem(
-                        rs.getString("id"),
-                        rs.getString("name"),
-                        rs.getString("category"),
-                        rs.getString("description"),
-                        rs.getDouble("price"),
-                        "/images/" + rs.getString("image")
-                ));
-            }
+    try (Connection conn = getConnection();
+         Statement stmt = conn.createStatement();
+         ResultSet rs = stmt.executeQuery(sql)) {
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        System.out.println("DEBUG: Query sudah jalan, baca hasil...");
+
+        while (rs.next()) {
+            String id = rs.getString("id");
+            String name = rs.getString("name");
+            System.out.println("DEBUG: row -> " + id + " | " + name);
+
+            list.add(new MenuItem(
+                    rs.getString("id"),
+                    rs.getString("name"),
+                    rs.getString("category"),
+                    rs.getString("description"),
+                    rs.getDouble("price"),
+                    "/images/" + rs.getString("image")
+            ));
         }
 
-        return list;  // <-- WAJIB!
+    } catch (SQLException e) {
+        System.out.println("ERROR SQL di getAll(): " + e.getMessage());
+        e.printStackTrace();
     }
 
-    // ========================
+    System.out.println("DEBUG: Total data dari DB = " + list.size());
+    return list;
+}
+
+
     // FIND BY ID
     // ========================
     public MenuItem findById(String id) {
