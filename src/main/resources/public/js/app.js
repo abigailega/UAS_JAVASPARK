@@ -92,11 +92,10 @@ document.querySelectorAll('.tab').forEach(tabBtn => {
     });
 });
 
-document.getElementById('btnCart').addEventListener('click', () => window.location.href = '/cart.html');
 document.getElementById('btnLogin').addEventListener('click', () => window.location.href = '/login.html');
 
 document.getElementById('confirmFloatingCart').addEventListener('click', () => {
-    alert('Pesanan dikonfirmasi!');
+    window.location.href = '/cart.html';
 });
 
 refreshMenu().then(updateCartPreview);

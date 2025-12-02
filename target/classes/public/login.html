@@ -2,19 +2,34 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Menu Restoran</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Restoran Lezat</title>
+
+    
+    <link rel="stylesheet" href="/css/login.css">
 </head>
+
 <body>
 
-    <header>
-        <h1>Restoran Lezat</h1>
-        <p>Pilih menu favorit Anda</p>
-    </header>
+    <div class="login-container">
+        <h2>Login</h2>
 
-    <div class="menu-container" id="menu-list">
+        <form id="loginForm">
+            
+            <label for="username">Username</label>
+            <input type="text" id="username" autocomplete="off" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" required>
+
+            <button type="submit">Masuk</button>
+
+            <p class="note">Masukkan akun admin untuk melanjutkan.</p>
+        </form>
     </div>
 
-    <script src="script.js"></script>
+    
+    <script src="/js/login.js"></script>
+
 </body>
 </html>
