@@ -37,9 +37,11 @@ public class OrderController {
                     return gson.toJson(Map.of("ok", false, "error", "Cart empty"));
                 }
                 Order o = orderService.createFromCart(name, tableNumber, cart);
+
                 cart.clear();
                 return gson.toJson(Map.of("ok", true, "order", o));
             } else {
+
                 Order o = orderService.createFromPayload(name, tableNumber, itemsRaw);
                 return gson.toJson(Map.of("ok", true, "order", o));
             }

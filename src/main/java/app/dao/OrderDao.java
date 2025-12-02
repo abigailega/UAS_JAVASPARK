@@ -10,9 +10,9 @@ import java.util.List;
 
 public class OrderDao {
 
-    private final String url = "jdbc:mysql://localhost:3306/restaurantdb";
-    private final String user = "root";
-    private final String password = "abigail"; 
+    private final String url = System.getenv().getOrDefault("DB_URL", "jdbc:mysql://localhost:3306/restaurantdb");
+    private final String user = System.getenv().getOrDefault("DB_USER", "root");
+    private final String password = System.getenv().getOrDefault("DB_PASS", "abigail");
 
     public OrderDao() {
         try {
